@@ -12,9 +12,11 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const [code, setCode] = useState("dsaodijasoidjasofjaofiaj")
+  const [title, setTitle] = useState("")
+  const [trigger, setTrigger] = useState("")
 
   return (
-    <CodeContext.Provider value={{ code: code, setCode: setCode }}>
+    <CodeContext.Provider value={{ code, setCode, title, setTitle, trigger, setTrigger }}>
       <div className={styles.container}>
         <Head>
           <title>Snippet Generator</title>
