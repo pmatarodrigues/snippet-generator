@@ -5,7 +5,7 @@ import styles from './OriginalContainer.module.css';
 
 // COMPONENT: OriginalContainer
 const OriginalContainer = (props) => {
-    const { code, setCode } = useContext(CodeContext);
+    const { code, setCode, title, setTitle, trigger, setTrigger } = useContext(CodeContext);
 
     // Verify if any code was input into original container
     const didUserStartTyping = () => {
@@ -17,6 +17,20 @@ const OriginalContainer = (props) => {
 
     return (
         <div className={styles.container}>
+            <div className={styles.snippetInfo}>
+                <input
+                    className={styles.snippetTitle}
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Title" />
+                <input
+                    className={styles.snippetPrefix}
+                    type="text"
+                    value={trigger}
+                    onChange={(e) => setTrigger(e.target.value)}
+                    placeholder="Trigger" />
+            </div>
             <textarea
                 className={styles.originalInput}
                 value={code}
