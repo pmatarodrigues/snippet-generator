@@ -15,6 +15,17 @@ const OriginalContainer = (props) => {
         return false;
     }
 
+    const addTabCharacter = (e) => {
+        const keyCode = e.key;
+        if (keyCode === 'Tab') {
+            e.preventDefault();
+            const TAB_SIZE = 4;
+            // Insert TAB element
+            // FIX: Tab is only added at the end of the Code
+            setCode(code + ' '.replaceAll(TAB_SIZE))
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.snippetInfo}>
@@ -33,6 +44,7 @@ const OriginalContainer = (props) => {
             </div>
             <textarea
                 className={styles.originalInput}
+                onKeyDown={(e) => addTabCharacter(e)}
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
             />
