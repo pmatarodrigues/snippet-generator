@@ -3,22 +3,26 @@ import React, { useContext } from 'react';
 import styles from './ResultContainer.module.css';
 import CodeContext from '../../../../context/state';
 
-const inputUserTitle = () => {
+const transformFunctionIntoString = (originalCode) => {
+    const result = originalCode.split("\n");
 
+    return result;
 }
 
+// Create JSON string with necessary data
 const generateCode = (title, trigger, originalCode) => {
     const result = {
         [title]: {
             "prefix": trigger,
             "body": [
-                originalCode
+                transformFunctionIntoString(originalCode)
             ]
         }
     }
 
     // Print object as a readable JSON
-    return JSON.stringify(result, null, 2);
+    // Replace and escape each necessary character to be read by the editor (i.e: $ -> \$)
+    return JSON.stringify(result, null, 4).replace(/\\/g, '').replace('$', '\\$');
 }
 
 // COMPONENT: ResultContainer
