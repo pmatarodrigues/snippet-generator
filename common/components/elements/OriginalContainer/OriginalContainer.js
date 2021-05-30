@@ -22,7 +22,7 @@ const OriginalContainer = (props) => {
             const TAB_SIZE = 4;
             // Insert TAB element
             // FIX: Tab is only added at the end of the Code
-            setCode(code + ' '.replaceAll(TAB_SIZE))
+            setCode(code + ' '.repeat(TAB_SIZE))
         }
     }
 
