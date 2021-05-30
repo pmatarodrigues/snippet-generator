@@ -1,5 +1,5 @@
 // REACT, STYLE, STORIES & COMPONENT
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './ResultContainer.module.css';
 import CodeContext from '../../../../context/state';
 
@@ -25,16 +25,27 @@ const generateCode = (title, trigger, originalCode) => {
     return JSON.stringify(result, null, 4).replace(/\\/g, '').replace('$', '\\$');
 }
 
+
 // COMPONENT: ResultContainer
 const ResultContainer = (props) => {
     const { code, setCode, title, setTitle, trigger, setTrigger } = useContext(CodeContext);
+    const [copied, setCopied] = useState(false)
 
     // Convert user input code into the snippet
     let resultCode = generateCode(title, trigger, code);
 
+    const copyCodeToClipboard = (code) => {
+        navigator.clipboard.writeText(code)
+        setCopied(true)
+        setTimeout(() => {
+            setCopied(false)
+        }, 2000)
+    }
+
     // RENDER: ResultContainer
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={() => copyCodeToClipboard(resultCode)}>
+            <p className={styles.copyTip}>{copied ? "Copied to clipboard" : "Click to copy"}</p>
             {/* ! Don't allow users to edit result code */}
             <textarea className={styles.result} value={resultCode} onChange={() => { }} />
         </div>

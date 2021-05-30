@@ -18,4 +18,14 @@
     border: none;
     box-shadow: none;
     color: white;
+    cursor: pointer;
+}
+
+.copyTip {
+    position: absolute;
+    text-align: center;
+    width: 50%;
+    color: white;
+    font-size: small;
+    opacity: 0.5;
 }
