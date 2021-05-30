@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useState } from 'react'
+import Copyright from '../common/components/elements/Copyright/Copyright'
 
 // Components
 import Section from '../common/components/elements/Section/Section'
@@ -27,6 +28,8 @@ export default function Home() {
           <Section position={"original"} />
           <Section position={"result"} />
         </main>
+
+        <Copyright />
 
 
       </div>
