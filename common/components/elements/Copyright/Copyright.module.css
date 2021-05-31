@@ -3,12 +3,11 @@
     bottom: 0;
     position: absolute;
     font-size: small;
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
+    text-decoration: underline;
+    padding: 0.6rem 2rem;
+    background-color: white;
 }
 
 .copyright > a {
-    padding: 0.6rem 2rem;
-    background-color: white;
+    margin: 0 10px;
 }
