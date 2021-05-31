@@ -6,7 +6,6 @@ import styles from './OriginalContainer.module.css';
 // COMPONENT: OriginalContainer
 const OriginalContainer = (props) => {
     const { code, setCode, title, setTitle, trigger, setTrigger } = useContext(CodeContext);
-    const [totalSnippets, setTotalSnippets] = useState(0)
 
     // Verify if any code was input into original container
     const didUserStartTyping = () => {
@@ -25,35 +24,47 @@ const OriginalContainer = (props) => {
             // FIX: Tab is only added at the end of the Code
             const currentCode = insertAtCursor(' '.repeat(TAB_SIZE));
             setCode(currentCode)
-        } else if (e.ctrlKey && keyCode === ' ') {  // CTRL + SPACE
+        } else if (e.ctrlKey && keyCode >= 0 && keyCode <= 9) {  // CTRL + [NUM]
             e.preventDefault();
-            const currentCode = insertAtCursor('{$' + totalSnippets + ':placeholder}');
+            // Show pressed number as placeholder number
+            const currentCode = insertAtCursor('${' + keyCode + ':placeholder}');
             setCode(currentCode)
-            // Number of snippets needs to be counted to show different data
-            setTotalSnippets(totalSnippets + 1);
+            selectPlaceholderWord();
         }
     }
 
-    const insertAtCursor = (myValue, myField = document.activeElement) => {
+    const selectPlaceholderWord = (codeElement = document.activeElement) => {
+        // "- 1" to avoid selecting the curly brace " } "
+        var startPos = codeElement.selectionStart - 1;
+        var endPos = startPos - "placeholder".length;
+
+        // Select word "placeholder" to ease user input
+        if (typeof (startPos) != "undefined") {
+            codeElement.selectionStart = endPos;
+            codeElement.selectionEnd = startPos;
+        }
+    }
+
+    const insertAtCursor = (textToInsert, codeElement = document.activeElement) => {
         //IE support
         if (document.selection) {
-            myField.focus();
+            codeElement.focus();
             sel = document.selection.createRange();
-            sel.text = myValue;
+            sel.text = textToInsert;
         }
         //MOZILLA and others
-        else if (myField.selectionStart || myField.selectionStart == '0') {
-            var startPos = myField.selectionStart;
-            var endPos = myField.selectionEnd;
-            myField.value = myField.value.substring(0, startPos)
-                + myValue
-                + myField.value.substring(endPos, myField.value.length);
-            myField.selectionStart = startPos + myValue.length;
-            myField.selectionEnd = startPos + myValue.length;
+        else if (codeElement.selectionStart || codeElement.selectionStart == '0') {
+            var startPos = codeElement.selectionStart;
+            var endPos = codeElement.selectionEnd;
+            codeElement.value = codeElement.value.substring(0, startPos)
+                + textToInsert
+                + codeElement.value.substring(endPos, codeElement.value.length);
+            codeElement.selectionStart = startPos + textToInsert.length;
+            codeElement.selectionEnd = startPos + textToInsert.length;
         } else {
-            myField.value += myValue;
+            codeElement.value += textToInsert;
         }
-        return myField.value;
+        return codeElement.value;
     }
 
 
@@ -73,6 +84,10 @@ const OriginalContainer = (props) => {
                     onChange={(e) => setTrigger(e.target.value)}
                     placeholder="Trigger" />
             </div>
+            <p className={styles.hint}>
+                {`Hint: Press CTRL + NUM [0-9] to add a placeholder like \$\{3\:placeholder}. `}
+                <a className={styles.hint} href="https://code.visualstudio.com/docs/editor/userdefinedsnippets" target="_blank">{`Learn more.`}</a>
+            </p>
             <textarea
                 className={styles.originalInput}
                 onKeyDown={(e) => detectKeyPress(e)}

@@ -2,10 +2,11 @@
     width: 100%;
     height: 100%;
     background-color: black;
+    padding-bottom: 1rem;
 }
 
 .originalInput {
-    padding: 40px;
+    padding: 20px 40px;
     width: 100%;
     height: 90%;
     text-align: start;
@@ -14,8 +15,13 @@
     border: none;
 }
 
-.snippetInfo {
+.hint {
+    color: white;
+    font-size: 12px;
+}
 
+a.hint {
+    text-decoration: underline;
 }
 
 .snippetInfo > input {
