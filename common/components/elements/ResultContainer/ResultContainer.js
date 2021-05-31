@@ -14,9 +14,7 @@ const generateCode = (title, trigger, originalCode) => {
     const result = {
         [title]: {
             "prefix": trigger,
-            "body": [
-                transformFunctionIntoString(originalCode)
-            ]
+            "body": transformFunctionIntoString(originalCode) // returns array
         }
     }
 
