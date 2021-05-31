@@ -1,8 +1,14 @@
 .copyright {
-    position: absolute;
-    bottom: 0;
     right: 0;
-    background-color: white;
-    padding: 0.6rem 2rem;
+    bottom: 0;
+    position: absolute;
     font-size: small;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.copyright > a {
+    padding: 0.6rem 2rem;
+    background-color: white;
 }
