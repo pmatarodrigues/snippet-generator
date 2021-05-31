@@ -22,7 +22,7 @@ const generateCode = (title, trigger, originalCode) => {
 
     // Print object as a readable JSON
     // Replace and escape each necessary character to be read by the editor (i.e: $ -> \$)
-    return JSON.stringify(result, null, 4).replace(' $', ' \\$');
+    return JSON.stringify(result, null, 4).replace('$', ' \\$').replace('\${', '${');
 }
 
 
