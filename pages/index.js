@@ -11,7 +11,7 @@ import CodeContext from '../context/state'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const [code, setCode] = useState("dsaodijasoidjasofjaofiaj")
+  const [code, setCode] = useState("")
   const [title, setTitle] = useState("")
   const [trigger, setTrigger] = useState("")
 
